@@ -1,10 +1,10 @@
 #! /bin/bash
 
 # Detect platform-dependent options
-OS=`uname -a | cut -d" " -f 1`
+OS=`uname -a | cut -d ' ' -f 1`
 echo "OS: $OS"
 
-if [ "$OS" == "Darwin" ]; then
+if [ "$OS" == 'Darwin' ]; then
     PLATFORM=osx
     SCRIPTDIR=$(cd "$(dirname "$0")"; pwd)
 
@@ -13,7 +13,7 @@ if [ "$OS" == "Darwin" ]; then
     else
         echo 'No package manager found. Install brew to continue.' && exit 1
     fi
-elif [ "$OS" == "Linux" ]; then
+elif [ "$OS" == 'Linux' ]; then
     PLATFORM=linux
     SCRIPT=$(readlink -f $0)
     SCRIPTDIR=$(dirname $SCRIPT)
