@@ -38,4 +38,13 @@ docker run -i --rm \
 apk add bash
 /bin/bash -c /kerberizeit.sh
 EOSHELL
+
+# openSUSE
+docker run -it --rm \
+  $(echo "$DOCKER_RUN_OPTS") \
+  -h opensuse \
+  --name opensuse \
+  -v "$PWD"/kerberizeit.sh:/kerberizeit.sh \
+  --network workbench \
+  docker.io/opensuse/leap:15.1 /bin/bash -c /kerberizeit.sh
 ```

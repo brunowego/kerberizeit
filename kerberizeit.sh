@@ -24,8 +24,10 @@ elif [ "$OS" == 'Linux' ]; then
         PACKAGE_MANAGER=yum
     elif [ -x /sbin/apk ]; then
         PACKAGE_MANAGER=apk
+    elif [ -x /usr/bin/zypper ]; then
+        PACKAGE_MANAGER=zypper
     else
-        echo 'No package manager found. Install aptitude, yum or apk to continue.' && exit 1
+        echo 'No package manager found. Install aptitude, yum, apk or zypp to continue.' && exit 1
     fi
 else
     echo "Unrecognized OS: $OS" && exit 1
@@ -70,6 +72,16 @@ function install_apk_packages() {
 
     # Install dependencies
     apk add krb5 krb5-dev
+}
+
+function install_zypper_packages() {
+    echo 'Installing zypper packages...'
+
+    # Update
+    zypper refresh
+
+    # Install dependencies
+    zypper install -y krb5-client krb5-devel
 }
 
 eval "type install_${PACKAGE_MANAGER}_packages &>/dev/null && install_${PACKAGE_MANAGER}_packages"
